@@ -1,5 +1,5 @@
 [database]
-path=/home/maximbaz/.mail
+path=/home/m0x/.mail
 
 [new]
 ignore=.uidvalidity;.mbsyncstate

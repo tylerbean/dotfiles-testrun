@@ -9,5 +9,5 @@ Defaults passwd_timeout=0
     /usr/bin/pacman -Syu, \
     /usr/bin/arch-nspawn, \
     /usr/bin/makechrootpkg, \
-    /usr/bin/paccache -vr -c /var/cache/pacman/pkg -c /var/cache/pacman/maximbaz-local -i maximbaz-aarch64 -i maximbaz-x86_64, \
-    /usr/bin/paccache -vruk0 -c /var/cache/pacman/pkg -c /var/cache/pacman/maximbaz-local -i maximbaz-aarch64 -i maximbaz-x86_64
+    /usr/bin/paccache -vr -c /var/cache/pacman/pkg -c /var/cache/pacman/m0x-local -i m0x-aarch64 -i m0x-x86_64, \
+    /usr/bin/paccache -vruk0 -c /var/cache/pacman/pkg -c /var/cache/pacman/m0x-local -i m0x-aarch64 -i m0x-x86_64

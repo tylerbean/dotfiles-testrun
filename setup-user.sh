@@ -67,17 +67,11 @@ link ".config/gtk-3.0"
 link ".config/htop"
 link ".config/hypr"
 link ".config/hyprland-autoname-workspaces"
-link ".config/imapnotify/archlinux.conf"
-link ".config/imapnotify/maximbaz.conf"
 link ".config/kak"
 link ".config/kak-lsp"
 link ".config/kitty"
 link ".config/mimeapps.list"
 link ".config/mpv"
-link ".config/neomutt/colors"
-link ".config/neomutt/mailcap"
-link ".config/neomutt/neomuttrc"
-link ".config/neomutt/signature"
 link ".config/notmuch"
 link ".config/pacman"
 link ".config/pgcli/config"
@@ -95,8 +89,6 @@ link ".config/systemd/user/backup-packages.service"
 link ".config/systemd/user/backup-packages.timer"
 link ".config/systemd/user/battery-low-notify.service"
 link ".config/systemd/user/hyprland-session.target"
-link ".config/systemd/user/mbsync.service"
-link ".config/systemd/user/mbsync.timer"
 link ".config/systemd/user/polkit-gnome.service"
 link ".config/systemd/user/systembus-notify.service"
 link ".config/systemd/user/udiskie.service"
@@ -142,22 +134,7 @@ else
     systemctl_enable_start "wl-clipboard-manager.service"
     systemctl_enable_start "wlsunset.service"
     systemctl_enable_start "wluma.service"
-    systemctl_enable_start "yubikey-touch-detector.socket"
 
-    if [[ $HOSTNAME == home-* ]]; then
-        if [ -d "$HOME/.mail" ]; then
-            mkdir -p "$HOME/.mail/"{archlinux,maximbaz}
-            systemctl_enable_start "mbsync.timer"
-            systemctl_enable_start "goimapnotify@archlinux.service"
-            systemctl_enable_start "goimapnotify@maximbaz.service"
-        else
-            echo >&2 -e "
-            === Mail is not configured, skipping...
-            === Consult \$MBSYNC_CONFIG for initial setup, and then sync everything using:
-            === while ! mbsync -c "\$MBSYNC_CONFIG" -a; do echo 'restarting...'; done
-            "
-        fi
-    fi
 fi
 
 echo ""
@@ -177,16 +154,6 @@ fi
 find "$HOME/.gnupg" -type f -not -path "*#*" -exec chmod 600 {} \;
 find "$HOME/.gnupg" -type d -exec chmod 700 {} \;
 
-if is_chroot; then
-    echo >&2 "=== Running in chroot, skipping YubiKey configuration..."
-else
-    if [ ! -s "$HOME/.config/Yubico/u2f_keys" ]; then
-        echo "Configuring YubiKey for passwordless sudo (touch it now)"
-        mkdir -p "$HOME/.config/Yubico"
-        pamu2fcfg -umaximbaz > "$HOME/.config/Yubico/u2f_keys"
-    fi
-fi
-
 if [ -d "$HOME/.password-store" ]; then
     echo "Configuring automatic git push for pass"
     echo -e "#!/bin/sh\n\npass git push" > "$HOME/.password-store/.git/hooks/post-commit"
@@ -202,11 +169,6 @@ else
     gsettings set org.gtk.Settings.FileChooser sort-directories-first true
 fi
 
-echo "Ignoring further changes to often changing config"
-git update-index --assume-unchanged ".config/transmission/settings.json"
-
 echo "Configure repo-local git settings"
-git config user.email "git@maximbaz.com"
-git config user.signingkey "04D7A219B0ABE4C2B62A5E654A2B758631E1FD91"
-git config commit.gpgsign true
-git remote set-url origin "git@github.com:maximbaz/dotfiles.git"
+git config user.email "o0beaner@gmail.com"
+git remote set-url origin "git@github.com:tylerbean/dotfiles-testrun.git"

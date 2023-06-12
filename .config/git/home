@@ -2,13 +2,12 @@
 	path = ~/.config/git/common
 
 [user]
-	email = git@maximbaz.com
-	signingkey = 04D7A219B0ABE4C2B62A5E654A2B758631E1FD91
+	email = o0beaner@gmail.com
 
 [sendemail]
 	smtpserver = /usr/bin/msmtp
 	smtpserveroption = -a
-	smtpserveroption = maximbaz
+	smtpserveroption = m0x
 	envelopeSender = auto
 
 # vim:ft=ini

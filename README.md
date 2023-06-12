@@ -20,7 +20,6 @@ Enjoy! 🚀
 - [kitty](https://github.com/kovidgoyal/kitty) - fast GPU-accelerated terminal
 - [kakoune](https://github.com/mawww/kakoune) - modular text editor with multiple cursors
 - [zsh](https://www.zsh.org) + [powerlevel10k](https://github.com/romkatv/powerlevel10k) and various other plugins
-- [yubikey-touch-detector](https://github.com/maximbaz/yubikey-touch-detector) - a tool that can detect when your YubiKey is waiting for a touch.
 - [browserpass](https://github.com/browserpass/browserpass-extension) - browser extension for `pass` and `gopass`.
 - [wire-desktop](https://github.com/wireapp/wire-desktop) - end-to-end encrypted chat app.
 - [wluma](https://github.com/maximbaz/wluma) - automatic brightness adjustment based on screen contents.
@@ -53,8 +52,6 @@ Enjoy! 🚀
 > Stronger algorithms, more sensible defaults.
 
 ☑ gpg-agent configured to act as ssh-agent.
-
-> Extremely nicely integrated with YubiKey, with forwarding to selected remote hosts.
 
 ☑ Hyprland automatically renames workspaces to show currently opened apps.
 

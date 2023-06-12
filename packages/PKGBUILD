@@ -6,9 +6,9 @@ pkgname=(
 )
 pkgver=3.0.3
 pkgrel=1
-pkgdesc='Packages installed by maximbaz'
+pkgdesc='Packages installed by m0x'
 arch=('any')
-url='https://github.com/maximbaz/dotfiles'
+url='https://github.com/tylerbean/dotfiles'
 license=('ISC')
 source=(
     '30-font-aliases.conf'
@@ -112,8 +112,6 @@ package_maximbaz-base() {
         'bandwhich'
         'net-tools'
         'nmap'
-        'nzbget'
-        'nzbget-systemd'
         'openbsd-netcat'
         'bind'
         'dog'
@@ -135,7 +133,6 @@ package_maximbaz-base() {
         'overdue'
         'ccid'
         'pam-u2f'
-        'yubikey-touch-detector'
         'usbguard'
         'pinentry'
         'gcr'
@@ -299,12 +296,7 @@ package_maximbaz-base() {
         'libgnome-keyring'
 
         # email
-        'isync'
-        'msmtp'
-        'neomutt'
         'urlscan'
-        'goimapnotify'
-        'mutt-ics'
         'w3m'
 
         # browsers
@@ -314,6 +306,8 @@ package_maximbaz-base() {
         'python-tldextract'
         'chromium'
         'firefox'
+        'vivaldi'
+        'vivaldi-ffmpeg-codecs'
 
         # screenshots & gifs & desktop sharing
         'grim'
@@ -406,7 +400,5 @@ package_maximbaz-aarch64() {
         'archlinuxarm-keyring'
         'asahi-meta'
 
-        # boot
-        'grub'
     )
 }

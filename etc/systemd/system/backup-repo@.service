@@ -3,6 +3,6 @@ Description=Backup pacman repository to %I
 
 [Service]
 Type=oneshot
-User=maximbaz
+User=m0x
 EnvironmentFile=/etc/systemd/system/backup-repo@%i
 ExecStart=/usr/local/bin/backup-repo
