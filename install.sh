@@ -18,7 +18,7 @@
 # Run installation:
 #
 # - Connect to wifi via: `# iwctl station wlan0 connect WIFI-NETWORK`
-# - Run: `# bash <(curl -sL https://git.io/maximbaz-install)`
+# - Run: `# bash <(curl -sL http://bit.ly/g14-installer)`
 
 set -uo pipefail
 trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
