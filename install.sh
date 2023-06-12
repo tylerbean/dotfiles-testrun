@@ -163,7 +163,7 @@ echo -e "\n### Configuring custom repo"
 mkdir "/mnt/var/cache/pacman/${user}-local"
 march="$(uname -m)"
 
-if [[ "${user}" == "maximbaz" && "${hostname}" == "home-"* ]]; then
+if [[ "${user}" == "m0x" ]]; then
     wget -m -nH -np -q --show-progress --progress=bar:force --reject='index.html*' --cut-dirs=3 -P "/mnt/var/cache/pacman/${user}-local" "https://pkgbuild.com/~maximbaz/repo/${march}"
     rename -- 'maximbaz.' "${user}-local." "/mnt/var/cache/pacman/${user}-local"/*
 else
@@ -200,11 +200,10 @@ echo "FONT=$font" > /mnt/etc/vconsole.conf
 genfstab -L /mnt >> /mnt/etc/fstab
 echo "${hostname}" > /mnt/etc/hostname
 echo "en_US.UTF-8 UTF-8" >> /mnt/etc/locale.gen
-echo "en_DK.UTF-8 UTF-8" >> /mnt/etc/locale.gen
-ln -sf /usr/share/zoneinfo/Europe/Copenhagen /mnt/etc/localtime
+ln -sf /usr/share/zoneinfo/America/Chicago /mnt/etc/localtime
 arch-chroot /mnt locale-gen
 cat << EOF > /mnt/etc/mkinitcpio.conf
-MODULES=()
+MODULES=(amdgpu)
 BINARIES=()
 FILES=()
 HOOKS=(base consolefont udev autodetect modconf block encrypt-dh filesystems keyboard)
@@ -213,12 +212,12 @@ arch-chroot /mnt mkinitcpio -p linux
 arch-chroot /mnt arch-secure-boot initial-setup
 
 echo -e "\n### Configuring swap file"
-btrfs filesystem mkswapfile --size 4G /mnt/swap/swapfile
+btrfs filesystem mkswapfile --size 16G /mnt/swap/swapfile
 echo "/swap/swapfile none swap defaults 0 0" >> /mnt/etc/fstab
 
 echo -e "\n### Creating user"
 arch-chroot /mnt useradd -m -s /usr/bin/zsh "$user"
-for group in wheel network nzbget video input; do
+for group in wheel network video input; do
     arch-chroot /mnt groupadd -rf "$group"
     arch-chroot /mnt gpasswd -a "$user" "$group"
 done
@@ -229,9 +228,9 @@ arch-chroot /mnt passwd -dl root
 echo -e "\n### Setting permissions on the custom repo"
 arch-chroot /mnt chown -R "$user:$user" "/var/cache/pacman/${user}-local/"
 
-if [ "${user}" = "maximbaz" ]; then
+if [ "${user}" = "m0x" ]; then
     echo -e "\n### Cloning dotfiles"
-    arch-chroot /mnt sudo -u $user bash -c 'git clone --recursive https://github.com/maximbaz/dotfiles.git ~/.dotfiles'
+    arch-chroot /mnt sudo -u $user bash -c 'git clone --recursive https://github.com/tylerbean/dotfiles-testrun.git ~/.dotfiles'
 
     echo -e "\n### Running initial setup"
     arch-chroot /mnt /home/$user/.dotfiles/setup-system.sh
