@@ -126,7 +126,7 @@ done
 
 sgdisk -p "${device}"
 
-meginblocks=2097152
+meginblocks=2048
 efi_start=2048
 efi_end="$(((512*meginblocks)+2047))"
 root_start=$((efi_end+1))
