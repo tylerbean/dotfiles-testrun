@@ -228,7 +228,7 @@ python-lsp-server python-black python-pip python-pylint yapf bpython go go-tools
 gopls revive staticcheck npm yarn typescript-language-server rust rust-analyzer \
 postgresql-libs pgformatter pgcli dbmate mariadb-clients aspell-en android-tools \
 android-udev kitty zsh pass pwgen msitools gnome-keyring libgnome-keyring urlscan \
-w3m qutebrowser python-adblock python-tldextract chromium man-db \
+w3m qutebrowser python-adblock python-tldextract chromium man-db mkinitcpio \
 firefox vivaldi vivaldi-ffmpeg-codecs grim swappy wf-recorder xdg-desktop-portal-wlr \
 mpv mpv-mpris ffmpeg yt-dlp kubectl kubectx hugo krita qalculate-gtk libreoffice-fresh \
 urlwatch mkcert shellcheck linux linux-headers devtools reflector amd-ucode \
