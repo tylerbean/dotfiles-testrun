@@ -215,7 +215,7 @@ pdftk inotify-tools lftp lbzip2 pigz pixz p7zip unrar unzip zip iwd nftables \
 iptables-nft bandwhich net-tools nmap openbsd-netcat bind dog mtr sipcalc \
 wget rsync openssh curlie speedtest-cli wireguard-tools systemd-resolvconf \
 vnstat proxychains-ng socat arch-audit ccid usbguard gcr checksec \
-polkit-gnome mokutil earlyoom systembus-notify fwupd tlp dmidecode upower \
+polkit-gnome mokutil earlyoom systembus-notify fwupd dmidecode upower \
 acpi pipewire-pulse pipewire wireplumber pulseaudio-alsa pulseaudio-bluetooth \
 pamixer pavucontrol playerctl bluez bluez-utils helvum hyprland swaybg \
 swaylock swayidle xorg-server-xwayland wl-clipboard python-i3ipc waybar light \
