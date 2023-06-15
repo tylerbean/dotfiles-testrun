@@ -205,7 +205,7 @@ mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt
 # fi
 
 echo -e "\n### Installing packages"
-pacstrap -i /mnt base base-devel dash linux-firmware kernel-modules-hook \
+pacstrap /mnt base base-devel dash linux-firmware kernel-modules-hook \
 logrotate man-pages btrfs-progs htop jre-openjdk-headless pipewire-jack \
 vi posix autoconf automake bison fakeroot flex gcc gettext groff gzip \
 libtool make pacman pkgconf sudo texinfo which pacman-contrib pkgstats \
@@ -256,13 +256,13 @@ FILES=()
 HOOKS=(base consolefont udev autodetect modconf block encrypt filesystems keyboard)
 EOF
 arch-chroot /mnt mkinitcpio -p linux
-arch-chroot /mnt pacman -Sy acpid
+arch-chroot /mnt pacman -Sy --noconfirm acpid
 arch-chroot /mnt systemctl enable acpid
 
 # g14 specific
-arch-chroot /mnt pacman -Sy nvidia-dkms nvidia-settings nvidia-prime acpi_call linux-headers
+arch-chroot /mnt pacman -Syy --noconfirm nvidia-dkms nvidia-settings nvidia-prime acpi_call linux-headers
 arch-chroot /mnt bash -c "echo -e '\r[g14]\nSigLevel = DatabaseNever Optional TrustAll\nServer = https://naru.jhyub.dev/\$repo\n' >> /etc/pacman.conf"
-arch-chroot /mnt pacman -Sy linux-g14 linux-g14-headers asusctl supergfxctl
+arch-chroot /mnt pacman -Syy --noconfirm linux-g14 linux-g14-headers asusctl supergfxctl
 arch-chroot /mnt systemctl enable supergfxd
 
 echo -e "\n### Configuring swap file"
