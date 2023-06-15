@@ -206,7 +206,7 @@ mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt
 
 echo -e "\n### Installing packages"
 pacstrap -i /mnt base base-devel dash linux-firmware kernel-modules-hook \
-mkinitcpio-encrypt-detached-header logrotate man-pages btrfs-progs htop \
+logrotate man-pages btrfs-progs htop \
 vi posix autoconf automake bison fakeroot flex gcc gettext groff gzip \
 libtool make pacman pkgconf sudo texinfo which pacman-contrib pkgstats \
 progress gocryptfs ntfs-3g sshfs udiskie xplr dua-cli croc bat exa fd \
@@ -228,11 +228,11 @@ python-lsp-server python-black python-pip python-pylint yapf bpython go go-tools
 gopls revive staticcheck npm yarn typescript-language-server rust rust-analyzer \
 postgresql-libs pgformatter pgcli dbmate mariadb-clients aspell-en android-tools \
 android-udev kitty zsh pass pwgen msitools gnome-keyring libgnome-keyring urlscan \
-w3m qutebrowser python-adblock chromium-widevine python-tldextract chromium \
+w3m qutebrowser python-adblock python-tldextract chromium \
 firefox vivaldi vivaldi-ffmpeg-codecs grim swappy wf-recorder xdg-desktop-portal-wlr \
 mpv mpv-mpris ffmpeg yt-dlp kubectl kubectx hugo krita qalculate-gtk libreoffice-fresh \
-scli urlwatch mkcert shellcheck linux linux-headers devtools reflector amd-ucode \
-terminus-font libvirt virt-manager qemu dnsmasq ebtables edk2-ovmf vulkan-headers wluma
+urlwatch mkcert shellcheck linux linux-headers devtools reflector amd-ucode \
+terminus-font libvirt virt-manager qemu dnsmasq ebtables edk2-ovmf vulkan-headers
 
 echo -e "\n### Generating base config files"
 ln -sfT dash /mnt/usr/bin/sh
@@ -303,6 +303,6 @@ umount -R /mnt
 #### base
 #base base-devel dash linux-firmware kernel-modules-hook mkinitcpio-encrypt-detached-header logrotate man-pages btrfs-progs htop vi posix autoconf automake bison fakeroot flex gcc gettext groff gzip libtool make pacman pkgconf sudo texinfo which pacman-contrib pkgstats progress gocryptfs ntfs-3g sshfs udiskie xplr dua-cli croc bat exa fd ripgrep ripgrep-all tree trash-cli imagemagick jq dfrs zathura-pdf-mupdf pdftk inotify-tools lftp lbzip2 pigz pixz p7zip unrar unzip zip iwd nftables iptables-nft bandwhich net-tools nmap openbsd-netcat bind dog mtr sipcalc wget rsync openssh curlie speedtest-cli wireguard-tools systemd-resolvconf vnstat proxychains-ng socat arch-audit ccid usbguard gcr checksec polkit-gnome mokutil earlyoom systembus-notify fwupd tlp dmidecode upower acpi pipewire-pulse pipewire wireplumber pulseaudio-alsa pulseaudio-bluetooth pamixer pavucontrol playerctl bluez bluez-utils helvum hyprland swaybg swaylock swayidle xorg-server-xwayland wl-clipboard python-i3ipc waybar light slurp qt5-wayland qt6-wayland wtype wldash ttf-dejavu ttf-liberation noto-fonts cantarell-fonts ttf-droid ttf-lato ttf-opensans otf-font-awesome ttf-joypixels aurpublish rebuild-detector git git-delta meld tig github-cli kakoune kak-lsp prettier dos2unix editorconfig-core-c docker docker-compose direnv terraform lurk fzf visidata bash-language-server checkbashisms shfmt bash-completion python-lsp-server python-black python-pip python-pylint yapf bpython go go-tools gopls revive staticcheck npm yarn typescript-language-server rust rust-analyzer postgresql-libs pgformatter pgcli dbmate mariadb-clients aspell-en android-tools android-udev kitty zsh pass pwgen msitools gnome-keyring libgnome-keyring urlscan w3m qutebrowser python-adblock chromium-widevine python-tldextract chromium firefox vivaldi vivaldi-ffmpeg-codecs grim swappy wf-recorder xdg-desktop-portal-wlr mpv mpv-mpris ffmpeg yt-dlp kubectl kubectx hugo krita qalculate-gtk libreoffice-fresh scli urlwatch mkcert shellcheck linux linux-headers devtools reflector amd-ucode terminus-font libvirt virt-manager qemu dnsmasq ebtables edk2-ovmf vulkan-headers wluma
 #### aur 
-# udiskie-dmenu-git vimiv-qt webwormhole-git bfs overdue hyprland-autoname-workspaces-git gtk-theme-arc-gruvbox-git wlsunset wlrctl swaync ttf-courier-prime ttf-heuristica ttf-signika # aurpublish aurutils repoctl terraform-ls teehee lscolors-git anydesk python-urwid_readline arch-secure-boot iriunwebcam-bin 
+# udiskie-dmenu-git mkinitcpio-encrypt-detached-header chromium-widevine scli-git wluma vimiv-qt webwormhole-git bfs overdue hyprland-autoname-workspaces-git gtk-theme-arc-gruvbox-git wlsunset wlrctl swaync ttf-courier-prime ttf-heuristica ttf-signika # aurpublish aurutils repoctl terraform-ls teehee lscolors-git anydesk python-urwid_readline arch-secure-boot iriunwebcam-bin 
 
 #arch-chroot /mnt arch-secure-boot initial-setup
