@@ -261,7 +261,7 @@ arch-chroot /mnt systemctl enable acpid
 
 # g14 specific
 arch-chroot /mnt pacman -Sy nvidia-dkms nvidia-settings nvidia-prime acpi_call linux-headers
-arch-chroot /mnt bash -c "echo -e '\r[g14]\nSigLevel = DatabaseNever Optional TrustAll\nServer = https://arch.asus-linux.org\n' >> /etc/pacman.conf"
+arch-chroot /mnt bash -c "echo -e '\r[g14]\nSigLevel = DatabaseNever Optional TrustAll\nServer = https://naru.jhyub.dev/\$repo\n' >> /etc/pacman.conf"
 arch-chroot /mnt pacman -Sy linux-g14 linux-g14-headers asusctl supergfxctl
 arch-chroot /mnt systemctl enable supergfxd
 
