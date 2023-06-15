@@ -62,6 +62,10 @@ get_choice() {
     dialog --clear --stdout --backtitle "$BACKTITLE" --title "$title" --menu "$description" 0 0 0 "${options[@]}"
 }
 
+echo -e "\n### Getting mirrors"
+reflector --save /etc/pacman.d/mirrorlist --country "United States" --protocol https --sort rate -l 5 > /dev/null
+pacman -Syy > /dev/null
+
 echo -e "\n### Checking UEFI boot mode"
 if [ ! -f /sys/firmware/efi/fw_platform_size ]; then
     echo >&2 "You must boot in UEFI mode to continue"
@@ -73,7 +77,7 @@ timedatectl set-ntp true
 hwclock --systohc --utc
 
 echo -e "\n### Installing additional tools"
-pacman -Sy --noconfirm --needed git reflector terminus-font dialog wget
+pacman -Sy --noconfirm --needed git terminus-font dialog wget
 
 echo -e "\n### HiDPI screens"
 noyes=("Yes" "The font is too small" "No" "The font size is just fine")
@@ -107,9 +111,6 @@ clear
 luks_header_device=$(get_choice "Installation" "Select disk to write LUKS header to" "${devicelist[@]}") || exit 1
 
 clear
-
-echo -e "\n### Setting up fastest mirrors"
-reflector --latest 30 --sort rate --save /etc/pacman.d/mirrorlist --country "United States"
 
 echo -e "\n### Setting up partitions"
 umount -R /mnt 2> /dev/null || true
