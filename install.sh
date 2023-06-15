@@ -206,7 +206,7 @@ mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt
 
 echo -e "\n### Installing packages"
 pacstrap -i /mnt base base-devel dash linux-firmware kernel-modules-hook \
-logrotate man-pages btrfs-progs htop \
+logrotate man-pages btrfs-progs htop jre-openjdk-headless pipewire-jack \
 vi posix autoconf automake bison fakeroot flex gcc gettext groff gzip \
 libtool make pacman pkgconf sudo texinfo which pacman-contrib pkgstats \
 progress gocryptfs ntfs-3g sshfs udiskie xplr dua-cli croc bat exa fd \
@@ -228,11 +228,11 @@ python-lsp-server python-black python-pip python-pylint yapf bpython go go-tools
 gopls revive staticcheck npm yarn typescript-language-server rust rust-analyzer \
 postgresql-libs pgformatter pgcli dbmate mariadb-clients aspell-en android-tools \
 android-udev kitty zsh pass pwgen msitools gnome-keyring libgnome-keyring urlscan \
-w3m qutebrowser python-adblock python-tldextract chromium \
+w3m qutebrowser python-adblock python-tldextract chromium man-db \
 firefox vivaldi vivaldi-ffmpeg-codecs grim swappy wf-recorder xdg-desktop-portal-wlr \
 mpv mpv-mpris ffmpeg yt-dlp kubectl kubectx hugo krita qalculate-gtk libreoffice-fresh \
 urlwatch mkcert shellcheck linux linux-headers devtools reflector amd-ucode \
-terminus-font libvirt virt-manager qemu dnsmasq ebtables edk2-ovmf vulkan-headers
+terminus-font libvirt virt-manager qemu-base dnsmasq ebtables edk2-ovmf vulkan-headers
 
 echo -e "\n### Generating base config files"
 ln -sfT dash /mnt/usr/bin/sh
