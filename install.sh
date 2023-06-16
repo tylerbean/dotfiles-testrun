@@ -259,8 +259,8 @@ HOOKS=(base consolefont udev autodetect modconf block encrypt filesystems keyboa
 EOF
 arch-chroot /mnt bootctl --path=/boot install
 arch-chroot /mnt bash -c "echo -e 'default arch.conf\ntimeout 3\neditor 0' > /boot/loader/loader.conf"
-arch-chroot /mnt bash -c "echo -e 'title    Arch Linux\nlinux     /vmlinuz-linux\ninitrd    /amd-ucode.img\ninitrd    /initramfs-linux.img' > /boot/loader/entries/arch.conf"
-arch-chroot /mnt bash -c "echo -e 'title    Arch Linux G14 Kernel\nlinux     /vmlinuz-linux-g14\ninitrd    /amd-ucode.img\ninitrd    /initramfs-linux-g14.img' > /boot/loader/entries/arch-g14.conf"
+arch-chroot /mnt bash -c "echo -e 'title    Arch Linux\nlinux     /vmlinuz-linux\ninitrd    /amd-ucode.img\ninitrd    /initramfs-linux.img\noptions	cryptdevice=UUID=$(blkid -t LABEL=luks -s UUID -o value):luks root=/dev/mapper/luks rootflags=subvol=/ rw' > /boot/loader/entries/arch.conf"
+arch-chroot /mnt bash -c "echo -e 'title    Arch Linux G14 Kernel\nlinux     /vmlinuz-linux-g14\ninitrd    /amd-ucode.img\ninitrd    /initramfs-linux-g14.img\noptions	cryptdevice=UUID=$(blkid -t LABEL=luks -s UUID -o value):luks root=/dev/mapper/luks rootflags=subvol=/ rw' > /boot/loader/entries/arch-g14.conf"
 arch-chroot /mnt mkinitcpio -P
 arch-chroot /mnt pacman -Sy --noconfirm acpid
 arch-chroot /mnt systemctl enable acpid
