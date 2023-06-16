@@ -257,9 +257,9 @@ FILES=()
 HOOKS=(base consolefont udev autodetect modconf block encrypt filesystems keyboard)
 EOF
 arch-chroot /mnt bootctl --path=/efi install
-arch-chroot /mnt bash -c "echo -e 'default arch-g14.conf\ntimeout 3\neditor 0' > /boot/loader/loader.conf"
-arch-chroot /mnt bash -c "echo -e 'title    Arch Linux\nlinux     /vmlinuz-linux\ninitrd    /amd-ucode.img\ninitrd    /initramfs-linux.img' > /boot/loader/entries/arch.conf"
-arch-chroot /mnt bash -c "echo -e 'title    Arch Linux G14 Kernel\nlinux     /vmlinuz-linux-g14\ninitrd    /amd-ucode.img\ninitrd    /initramfs-linux-g14.img' > /boot/loader/entries/arch-g14.conf"
+arch-chroot /mnt bash -c "echo -e 'default arch-g14.conf\ntimeout 3\neditor 0' > /efi/loader/loader.conf"
+arch-chroot /mnt bash -c "echo -e 'title    Arch Linux\nlinux     /vmlinuz-linux\ninitrd    /amd-ucode.img\ninitrd    /initramfs-linux.img' > /efi/loader/entries/arch.conf"
+arch-chroot /mnt bash -c "echo -e 'title    Arch Linux G14 Kernel\nlinux     /vmlinuz-linux-g14\ninitrd    /amd-ucode.img\ninitrd    /initramfs-linux-g14.img' > /efi/loader/entries/arch-g14.conf"
 arch-chroot /mnt mkinitcpio -P
 arch-chroot /mnt pacman -Sy --noconfirm acpid
 arch-chroot /mnt systemctl enable acpid
