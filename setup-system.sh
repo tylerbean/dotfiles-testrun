@@ -177,5 +177,4 @@ timedatectl set-ntp true
 
 echo "Configuring aurutils"
 mkdir -p /etc/aurutils
-ln -sf /etc/pacman.conf "/etc/aurutils/pacman-maximbaz-local.conf"
 ln -sf /etc/pacman.conf "/etc/aurutils/pacman-$(uname -m).conf"
