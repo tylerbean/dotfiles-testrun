@@ -268,7 +268,7 @@ arch-chroot /mnt systemctl enable acpid
 # g14 specific
 arch-chroot /mnt pacman -Syy --noconfirm nvidia-dkms nvidia-settings nvidia-prime acpi_call linux-headers
 arch-chroot /mnt bash -c "echo -e '\r[g14]\nSigLevel = DatabaseNever Optional TrustAll\nServer = https://naru.jhyub.dev/\$repo\n' >> /etc/pacman.conf"
-arch-chroot /mnt pacman -Syy --noconfirm asusctl supergfxctl
+arch-chroot /mnt pacman -Syy --noconfirm asusctl supergfxctl linux-g14 linux-g14-headers 
 arch-chroot /mnt systemctl enable supergfxd
 
 echo -e "\n### Configuring swap file"
