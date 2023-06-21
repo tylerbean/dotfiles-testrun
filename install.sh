@@ -254,7 +254,7 @@ cat << EOF > /mnt/etc/mkinitcpio.conf
 MODULES=(amdgpu)
 BINARIES=()
 FILES=()
-HOOKS=(base consolefont udev aut    odetect modconf block encrypt filesystems keyboard)
+HOOKS=(base consolefont udev autodetect modconf block encrypt filesystems keyboard)
 EOF
 arch-chroot /mnt bootctl --path=/efi install
 arch-chroot /mnt bash -c "echo -e 'default arch.conf\ntimeout 3\neditor 0' > /efi/loader/loader.conf"
