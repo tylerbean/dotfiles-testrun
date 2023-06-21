@@ -270,6 +270,7 @@ arch-chroot /mnt pacman -Syy --noconfirm nvidia-dkms nvidia-settings nvidia-prim
 arch-chroot /mnt bash -c "echo -e '\r[g14]\nSigLevel = DatabaseNever Optional TrustAll\nServer = https://naru.jhyub.dev/\$repo\n' >> /etc/pacman.conf"
 arch-chroot /mnt pacman -Syy --noconfirm asusctl supergfxctl linux-g14 linux-g14-headers 
 arch-chroot /mnt systemctl enable supergfxd
+arch-chroot /mnt sed -i "s/arch/arch-g14/g" /boot/loader/loader.conf
 
 echo -e "\n### Configuring swap file"
 btrfs filesystem mkswapfile --size 16G /mnt/swap/swapfile
