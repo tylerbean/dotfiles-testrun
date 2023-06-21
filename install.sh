@@ -164,12 +164,12 @@ btrfs subvolume create /mnt/logs
 btrfs subvolume create /mnt/temp
 btrfs subvolume create /mnt/swap
 btrfs subvolume create /mnt/snapshots
-mkdir /mnt/boot
+mkdir /mnt/efi
 umount /mnt
 
 mount -o noatime,nodiratime,compress=zstd,subvol=root /dev/mapper/luks /mnt
 mkdir -p /mnt/{mnt/btrfs-root,boot,home,var/{cache/pacman,log,tmp,lib/{aurbuild,archbuild,docker}},swap,.snapshots}
-mount "${part_boot}" /mnt/boot
+mount "${part_boot}" /mnt/efi
 mount -o noatime,nodiratime,compress=zstd,subvol=/ /dev/mapper/luks /mnt/mnt/btrfs-root
 mount -o noatime,nodiratime,compress=zstd,subvol=home /dev/mapper/luks /mnt/home
 mount -o noatime,nodiratime,compress=zstd,subvol=pkgs /dev/mapper/luks /mnt/var/cache/pacman
@@ -257,10 +257,10 @@ BINARIES=()
 FILES=()
 HOOKS=(base consolefont udev aut    odetect modconf block encrypt filesystems keyboard)
 EOF
-arch-chroot /mnt bootctl --path=/boot install
-arch-chroot /mnt bash -c "echo -e 'default arch.conf\ntimeout 3\neditor 0' > /boot/loader/loader.conf"
-arch-chroot /mnt bash -c "echo -e 'title    Arch Linux\nlinux     /vmlinuz-linux\ninitrd    /amd-ucode.img\ninitrd    /initramfs-linux.img\noptions	cryptdevice=UUID=$(blkid -t LABEL=luks -s UUID -o value):luks root=/dev/mapper/luks rootflags=subvol=/root rw' > /boot/loader/entries/arch.conf"
-arch-chroot /mnt bash -c "echo -e 'title    Arch Linux G14 Kernel\nlinux     /vmlinuz-linux-g14\ninitrd    /amd-ucode.img\ninitrd    /initramfs-linux-g14.img\noptions	cryptdevice=UUID=$(blkid -t LABEL=luks -s UUID -o value):luks root=/dev/mapper/luks rootflags=subvol=/root rw' > /boot/loader/entries/arch-g14.conf"
+arch-chroot /mnt bootctl --path=/efi install
+arch-chroot /mnt bash -c "echo -e 'default arch.conf\ntimeout 3\neditor 0' > /efi/loader/loader.conf"
+arch-chroot /mnt bash -c "echo -e 'title    Arch Linux\nlinux     /vmlinuz-linux\ninitrd    /amd-ucode.img\ninitrd    /initramfs-linux.img\noptions	cryptdevice=UUID=$(blkid -t LABEL=luks -s UUID -o value):luks root=/dev/mapper/luks rootflags=subvol=/root rw' > /efi/loader/entries/arch.conf"
+arch-chroot /mnt bash -c "echo -e 'title    Arch Linux G14 Kernel\nlinux     /vmlinuz-linux-g14\ninitrd    /amd-ucode.img\ninitrd    /initramfs-linux-g14.img\noptions	cryptdevice=UUID=$(blkid -t LABEL=luks -s UUID -o value):luks root=/dev/mapper/luks rootflags=subvol=/root rw' > /efi/loader/entries/arch-g14.conf"
 arch-chroot /mnt mkinitcpio -P
 arch-chroot /mnt pacman -Sy --noconfirm acpid
 arch-chroot /mnt systemctl enable acpid
@@ -270,7 +270,7 @@ arch-chroot /mnt pacman -Syy --noconfirm nvidia-dkms nvidia-settings nvidia-prim
 arch-chroot /mnt bash -c "echo -e '\r[g14]\nSigLevel = DatabaseNever Optional TrustAll\nServer = https://asuslinux.ilikeinfra.cyou' >> /etc/pacman.conf"
 arch-chroot /mnt pacman -Syy --noconfirm asusctl supergfxctl linux-g14 linux-g14-headers 
 arch-chroot /mnt systemctl enable supergfxd
-arch-chroot /mnt sed -i "s/arch/arch-g14/g" /boot/loader/loader.conf
+arch-chroot /mnt sed -i "s/arch/arch-g14/g" /efi/loader/loader.conf
 
 echo -e "\n### Configuring swap file"
 btrfs filesystem mkswapfile --size 16G /mnt/swap/swapfile
