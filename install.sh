@@ -154,6 +154,8 @@ mkfs.btrfs -L btrfs /dev/mapper/luks
 
 echo -e "\n### Setting up BTRFS subvolumes"
 mount /dev/mapper/luks /mnt
+mkdir /mnt/efi
+mount "${part_boot}" /mnt/efi
 btrfs subvolume create /mnt/root
 btrfs subvolume create /mnt/home
 btrfs subvolume create /mnt/pkgs
@@ -167,8 +169,7 @@ btrfs subvolume create /mnt/snapshots
 umount /mnt
 
 mount -o noatime,nodiratime,compress=zstd,subvol=root /dev/mapper/luks /mnt
-mkdir -p /mnt/{mnt/btrfs-root,efi,home,var/{cache/pacman,log,tmp,lib/{aurbuild,archbuild,docker}},swap,.snapshots}
-mount "${part_boot}" /mnt/efi
+mkdir -p /mnt/{mnt/btrfs-root,home,var/{cache/pacman,log,tmp,lib/{aurbuild,archbuild,docker}},swap,.snapshots}
 mount -o noatime,nodiratime,compress=zstd,subvol=/ /dev/mapper/luks /mnt/mnt/btrfs-root
 mount -o noatime,nodiratime,compress=zstd,subvol=home /dev/mapper/luks /mnt/home
 mount -o noatime,nodiratime,compress=zstd,subvol=pkgs /dev/mapper/luks /mnt/var/cache/pacman
