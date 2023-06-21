@@ -255,7 +255,7 @@ cat << EOF > /mnt/etc/mkinitcpio.conf
 MODULES=(amdgpu)
 BINARIES=()
 FILES=()
-HOOKS=(base consolefont udev autodetect modconf block encrypt filesystems keyboard)
+HOOKS=(base consolefont udev aut    odetect modconf block encrypt filesystems keyboard)
 EOF
 arch-chroot /mnt bootctl --path=/boot install
 arch-chroot /mnt bash -c "echo -e 'default arch.conf\ntimeout 3\neditor 0' > /boot/loader/loader.conf"
@@ -267,7 +267,7 @@ arch-chroot /mnt systemctl enable acpid
 
 # g14 specific
 arch-chroot /mnt pacman -Syy --noconfirm nvidia-dkms nvidia-settings nvidia-prime acpi_call linux-headers
-arch-chroot /mnt bash -c "echo -e '\r[g14]\nSigLevel = DatabaseNever Optional TrustAll\nServer = https://naru.jhyub.dev/\$repo\n' >> /etc/pacman.conf"
+arch-chroot /mnt bash -c "echo -e '\r[g14]\nSigLevel = DatabaseNever Optional TrustAll\nServer = https://asuslinux.ilikeinfra.cyou' >> /etc/pacman.conf"
 arch-chroot /mnt pacman -Syy --noconfirm asusctl supergfxctl linux-g14 linux-g14-headers 
 arch-chroot /mnt systemctl enable supergfxd
 arch-chroot /mnt sed -i "s/arch/arch-g14/g" /boot/loader/loader.conf
