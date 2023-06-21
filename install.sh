@@ -164,11 +164,10 @@ btrfs subvolume create /mnt/logs
 btrfs subvolume create /mnt/temp
 btrfs subvolume create /mnt/swap
 btrfs subvolume create /mnt/snapshots
-mkdir /mnt/efi
 umount /mnt
 
 mount -o noatime,nodiratime,compress=zstd,subvol=root /dev/mapper/luks /mnt
-mkdir -p /mnt/{mnt/btrfs-root,boot,home,var/{cache/pacman,log,tmp,lib/{aurbuild,archbuild,docker}},swap,.snapshots}
+mkdir -p /mnt/{mnt/btrfs-root,efi,home,var/{cache/pacman,log,tmp,lib/{aurbuild,archbuild,docker}},swap,.snapshots}
 mount "${part_boot}" /mnt/efi
 mount -o noatime,nodiratime,compress=zstd,subvol=/ /dev/mapper/luks /mnt/mnt/btrfs-root
 mount -o noatime,nodiratime,compress=zstd,subvol=home /dev/mapper/luks /mnt/home
