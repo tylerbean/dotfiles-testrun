@@ -230,7 +230,8 @@ BINARIES=()
 FILES=()
 HOOKS=(base consolefont udev autodetect modconf block encrypt filesystems keyboard)
 EOF
-cat << EOF > /etc/pacman.d/hooks/999-kernel-efi-copy.hook
+
+cat << EOF > /mnt/etc/pacman.d/hooks/999-kernel-efi-copy.hook
 # /etc/pacman.d/hooks/999-kernel-efi-copy.hook
 [Trigger]
 Type = File
@@ -245,8 +246,8 @@ Description = Copying linux and initramfs to EFI directory...
 When = PostTransaction
 Exec = /usr/local/bin/kernel-efi-copy.sh
 EOF
-cat << EOF > /usr/local/bin/kernel-efi-copy.sh
 
+cat << EOF > /mnt/usr/local/bin/kernel-efi-copy.sh
 #!/usr/bin/env bash
 #
 # Copy kernel and initramfs images to EFI directory
