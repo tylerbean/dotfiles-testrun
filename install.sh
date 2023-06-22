@@ -224,7 +224,7 @@ echo "en_US.UTF-8 UTF-8" >> /mnt/etc/locale.gen
 ln -sf /usr/share/zoneinfo/America/Chicago /mnt/etc/localtime
 arch-chroot /mnt locale-gen
 
-cat << EOF > /mnt/etc/mkinitcpio.conf
+cat << 'EOF' > /mnt/etc/mkinitcpio.conf
 MODULES=(amdgpu)
 BINARIES=()
 FILES=()
@@ -232,7 +232,7 @@ HOOKS=(base consolefont udev autodetect modconf block encrypt filesystems keyboa
 EOF
 
 mkdir -p /mnt/etc/pacman.d/hooks
-cat << EOF > /mnt/etc/pacman.d/hooks/999-kernel-efi-copy.hook
+cat << 'EOF' > /mnt/etc/pacman.d/hooks/999-kernel-efi-copy.hook
 [Trigger]
 Type = File
 Operation = Install
@@ -247,12 +247,12 @@ When = PostTransaction
 Exec = /usr/local/bin/kernel-efi-copy.sh
 EOF
 
-cat << EOF > /mnt/usr/local/bin/kernel-efi-copy.sh
+cat << 'EOF' > /mnt/usr/local/bin/kernel-efi-copy.sh
 #!/usr/bin/env bash
 #
 # Copy kernel and initramfs images to EFI directory
 
-ESP_DIR="/boot/efi/EFI/arch"
+ESP_DIR="/efi/EFI/arch"
 
 for file in /boot/vmlinuz*
 do
