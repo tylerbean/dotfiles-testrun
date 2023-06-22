@@ -206,7 +206,7 @@ mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt
 # fi
 
 echo -e "\n### Installing packages"
-pacstrap /mnt base base-devel bash
+pacstrap /mnt base base-devel dash
 
 echo -e "\n### Generating base config files"
 ln -sfT dash /mnt/usr/bin/sh
@@ -223,6 +223,7 @@ echo "${hostname}" > /mnt/etc/hostname
 echo "en_US.UTF-8 UTF-8" >> /mnt/etc/locale.gen
 ln -sf /usr/share/zoneinfo/America/Chicago /mnt/etc/localtime
 arch-chroot /mnt locale-gen
+
 cat << EOF > /mnt/etc/mkinitcpio.conf
 MODULES=(amdgpu)
 BINARIES=()
