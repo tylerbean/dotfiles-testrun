@@ -206,7 +206,7 @@ mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt
 # fi
 
 echo -e "\n### Installing packages"
-pacstrap /mnt base base-devel dash
+pacstrap /mnt base base-devel dash iptables-nft
 
 echo -e "\n### Generating base config files"
 ln -sfT dash /mnt/usr/bin/sh
@@ -279,7 +279,7 @@ libtool make pacman pkgconf sudo texinfo which pacman-contrib vim pkgstats \
 progress gocryptfs ntfs-3g sshfs udiskie xplr dua-cli croc bat exa fd \
 ripgrep ripgrep-all tree trash-cli imagemagick jq dfrs zathura-pdf-mupdf \
 pdftk inotify-tools lftp lbzip2 pigz pixz p7zip unrar unzip zip iwd nftables \
-iptables-nft bandwhich net-tools nmap openbsd-netcat bind dog mtr sipcalc \
+bandwhich net-tools nmap openbsd-netcat bind dog mtr sipcalc \
 wget rsync openssh curlie speedtest-cli wireguard-tools systemd-resolvconf \
 vnstat proxychains-ng socat arch-audit ccid usbguard gcr checksec snapper \
 polkit-gnome mokutil earlyoom systembus-notify fwupd dmidecode upower \
