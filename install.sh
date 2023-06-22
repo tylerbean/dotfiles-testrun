@@ -206,7 +206,72 @@ mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt
 # fi
 
 echo -e "\n### Installing packages"
-pacstrap /mnt base base-devel dash linux-firmware kernel-modules-hook \
+pacstrap /mnt base base-devel
+
+echo -e "\n### Generating base config files"
+ln -sfT dash /mnt/usr/bin/sh
+
+cryptsetup luksHeaderBackup "${luks_header_device}" --header-backup-file /tmp/header.img
+luks_header_size="$(stat -c '%s' /tmp/header.img)"
+rm -f /tmp/header.img
+
+echo "cryptdevice=PARTLABEL=primary:luks:allow-discards cryptheader=LABEL=luks:0:$luks_header_size root=LABEL=btrfs rw rootflags=subvol=root quiet mem_sleep_default=deep" > /mnt/etc/kernel/cmdline
+
+echo "FONT=$font" > /mnt/etc/vconsole.conf
+genfstab -L /mnt >> /mnt/etc/fstab
+echo "${hostname}" > /mnt/etc/hostname
+echo "en_US.UTF-8 UTF-8" >> /mnt/etc/locale.gen
+ln -sf /usr/share/zoneinfo/America/Chicago /mnt/etc/localtime
+arch-chroot /mnt locale-gen
+cat << EOF > /mnt/etc/mkinitcpio.conf
+MODULES=(amdgpu)
+BINARIES=()
+FILES=()
+HOOKS=(base consolefont udev autodetect modconf block encrypt filesystems keyboard)
+EOF
+cat << EOF > /etc/pacman.d/hooks/999-kernel-efi-copy.hook
+# /etc/pacman.d/hooks/999-kernel-efi-copy.hook
+[Trigger]
+Type = File
+Operation = Install
+Operation = Upgrade
+Target = boot/vmlinuz*
+Target = usr/lib/initcpio/*
+Target = boot/*-ucode.img
+
+[Action]
+Description = Copying linux and initramfs to EFI directory...
+When = PostTransaction
+Exec = /usr/local/bin/kernel-efi-copy.sh
+EOF
+cat << EOF > /usr/local/bin/kernel-efi-copy.sh
+
+#!/usr/bin/env bash
+#
+# Copy kernel and initramfs images to EFI directory
+# /usr/local/bin/kernel-efi-copy.sh
+
+ESP_DIR="/boot/efi/EFI/arch"
+
+for file in /boot/vmlinuz*
+do
+        cp -af "$file" "$ESP_DIR/$(basename "$file").efi"
+        [[ $? -ne 0 ]] && exit 1
+done
+
+for file in /boot/initramfs*
+do
+        cp -af "$file" "$ESP_DIR/"
+        [[ $? -ne 0 ]] && exit 1
+done
+
+[[ -e /boot/intel-ucode.img ]] && cp -af /boot/intel-ucode.img "$ESP_DIR/"
+[[ -e /boot/amd-ucode.img ]] && cp -af /boot/amd-ucode.img "$ESP_DIR/"
+
+exit 0
+EOF
+
+arch-chroot /mnt pacman -Sy --noconfirm dash linux-firmware kernel-modules-hook \
 logrotate man-pages btrfs-progs htop jre-openjdk-headless pipewire-jack \
 vi posix autoconf automake bison fakeroot flex gcc gettext groff gzip \
 libtool make pacman pkgconf sudo texinfo which pacman-contrib vim pkgstats \
@@ -233,39 +298,15 @@ w3m qutebrowser python-adblock python-tldextract chromium man-db mkinitcpio \
 firefox vivaldi vivaldi-ffmpeg-codecs grim swappy wf-recorder xdg-desktop-portal-wlr \
 mpv mpv-mpris ffmpeg yt-dlp kubectl kubectx hugo krita qalculate-gtk libreoffice-fresh \
 urlwatch mkcert shellcheck linux linux-headers devtools reflector amd-ucode \
-terminus-font libvirt virt-manager qemu-base dnsmasq ebtables edk2-ovmf vulkan-headers
-
-echo -e "\n### Generating base config files"
-ln -sfT dash /mnt/usr/bin/sh
-
-cryptsetup luksHeaderBackup "${luks_header_device}" --header-backup-file /tmp/header.img
-luks_header_size="$(stat -c '%s' /tmp/header.img)"
-rm -f /tmp/header.img
-
-echo "cryptdevice=PARTLABEL=primary:luks:allow-discards cryptheader=LABEL=luks:0:$luks_header_size root=LABEL=btrfs rw rootflags=subvol=root quiet mem_sleep_default=deep" > /mnt/etc/kernel/cmdline
-
-echo "FONT=$font" > /mnt/etc/vconsole.conf
-genfstab -L /mnt >> /mnt/etc/fstab
-echo "${hostname}" > /mnt/etc/hostname
-echo "en_US.UTF-8 UTF-8" >> /mnt/etc/locale.gen
-ln -sf /usr/share/zoneinfo/America/Chicago /mnt/etc/localtime
-arch-chroot /mnt locale-gen
-cat << EOF > /mnt/etc/mkinitcpio.conf
-MODULES=(amdgpu)
-BINARIES=()
-FILES=()
-HOOKS=(base consolefont udev autodetect modconf block encrypt filesystems keyboard)
-EOF
+terminus-font libvirt virt-manager qemu-base dnsmasq ebtables edk2-ovmf vulkan-headers \
+acpid nvidia-dkms nvidia-settings nvidia-prime acpi_call linux-headers
 arch-chroot /mnt bootctl --path=/efi install
 arch-chroot /mnt bash -c "echo -e 'default arch.conf\ntimeout 3\neditor 0' > /efi/loader/loader.conf"
 arch-chroot /mnt bash -c "echo -e 'title    Arch Linux\nlinux     /vmlinuz-linux\ninitrd    /amd-ucode.img\ninitrd    /initramfs-linux.img\noptions	cryptdevice=UUID=$(blkid -t LABEL=luks -s UUID -o value):luks root=/dev/mapper/luks rootflags=subvol=/root rw' > /efi/loader/entries/arch.conf"
 arch-chroot /mnt bash -c "echo -e 'title    Arch Linux G14 Kernel\nlinux     /vmlinuz-linux-g14\ninitrd    /amd-ucode.img\ninitrd    /initramfs-linux-g14.img\noptions	cryptdevice=UUID=$(blkid -t LABEL=luks -s UUID -o value):luks root=/dev/mapper/luks rootflags=subvol=/root rw' > /efi/loader/entries/arch-g14.conf"
-arch-chroot /mnt mkinitcpio -P
-arch-chroot /mnt pacman -Sy --noconfirm acpid
 arch-chroot /mnt systemctl enable acpid
 
 # g14 specific
-arch-chroot /mnt pacman -Syy --noconfirm nvidia-dkms nvidia-settings nvidia-prime acpi_call linux-headers
 arch-chroot /mnt bash -c "echo -e '\r[g14]\nSigLevel = DatabaseNever Optional TrustAll\nServer = https://asuslinux.ilikeinfra.cyou' >> /etc/pacman.conf"
 arch-chroot /mnt pacman -Syy --noconfirm asusctl supergfxctl linux-g14 linux-g14-headers 
 arch-chroot /mnt systemctl enable supergfxd
