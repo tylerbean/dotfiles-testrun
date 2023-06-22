@@ -272,7 +272,7 @@ done
 exit 0
 EOF
 
-arch-chroot /mnt pacman -Sy --noconfirm dash linux-firmware kernel-modules-hook \
+arch-chroot /mnt pacman -Sy --noconfirm linux-firmware kernel-modules-hook \
 logrotate man-pages btrfs-progs htop jre-openjdk-headless pipewire-jack \
 vi posix autoconf automake bison fakeroot flex gcc gettext groff gzip \
 libtool make pacman pkgconf sudo texinfo which pacman-contrib vim pkgstats \
