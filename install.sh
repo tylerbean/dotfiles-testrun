@@ -273,6 +273,7 @@ exit 0
 EOF
 
 chmod +x /mnt/usr/local/bin/kernel-efi-copy.sh
+mkdir /efi/EFI/arch
 
 arch-chroot /mnt pacman -Sy --noconfirm linux-firmware kernel-modules-hook \
 logrotate man-pages btrfs-progs htop jre-openjdk-headless pipewire-jack \
