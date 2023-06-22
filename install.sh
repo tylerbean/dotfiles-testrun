@@ -283,7 +283,7 @@ iptables-nft bandwhich net-tools nmap openbsd-netcat bind dog mtr sipcalc \
 wget rsync openssh curlie speedtest-cli wireguard-tools systemd-resolvconf \
 vnstat proxychains-ng socat arch-audit ccid usbguard gcr checksec snapper \
 polkit-gnome mokutil earlyoom systembus-notify fwupd dmidecode upower \
-acpi pipewire-pulse pipewire wireplumber pulseaudio-alsa pulseaudio-bluetooth \
+acpi pipewire-pulse pipewire wireplumber  \
 pamixer pavucontrol playerctl bluez bluez-utils helvum hyprland swaybg \
 swaylock swayidle xorg-server-xwayland wl-clipboard python-i3ipc waybar light \
 slurp qt5-wayland qt6-wayland wtype wldash ttf-dejavu ttf-liberation noto-fonts \
