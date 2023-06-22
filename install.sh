@@ -206,7 +206,7 @@ mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt
 # fi
 
 echo -e "\n### Installing packages"
-pacstrap /mnt base base-devel
+pacstrap /mnt base base-devel bash
 
 echo -e "\n### Generating base config files"
 ln -sfT dash /mnt/usr/bin/sh
