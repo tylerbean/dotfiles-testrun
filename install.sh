@@ -231,8 +231,8 @@ FILES=()
 HOOKS=(base consolefont udev autodetect modconf block encrypt filesystems keyboard)
 EOF
 
+mkdir -p /mnt/etc/pacman.d/hooks
 cat << EOF > /mnt/etc/pacman.d/hooks/999-kernel-efi-copy.hook
-# /etc/pacman.d/hooks/999-kernel-efi-copy.hook
 [Trigger]
 Type = File
 Operation = Install
@@ -251,7 +251,6 @@ cat << EOF > /mnt/usr/local/bin/kernel-efi-copy.sh
 #!/usr/bin/env bash
 #
 # Copy kernel and initramfs images to EFI directory
-# /usr/local/bin/kernel-efi-copy.sh
 
 ESP_DIR="/boot/efi/EFI/arch"
 
