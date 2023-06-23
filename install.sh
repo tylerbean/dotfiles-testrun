@@ -77,7 +77,8 @@ timedatectl set-ntp true
 hwclock --systohc --utc
 
 echo -e "\n### Installing additional tools"
-pacman -Sy --noconfirm --needed git terminus-font dialog wget
+pacman -Sy --noconfirm --needed git dialog wget
+# terminus-font
 
 echo -e "\n### HiDPI screens"
 noyes=("Yes" "The font is too small" "No" "The font size is just fine")
