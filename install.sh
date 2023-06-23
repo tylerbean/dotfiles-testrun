@@ -306,8 +306,8 @@ terminus-font libvirt virt-manager qemu-base dnsmasq ebtables edk2-ovmf vulkan-h
 acpid nvidia-dkms nvidia-settings nvidia-prime acpi_call linux-headers
 arch-chroot /mnt bootctl --path=/efi install
 arch-chroot /mnt bash -c "echo -e 'default arch.conf\ntimeout 3\neditor 0' > /efi/loader/loader.conf"
-arch-chroot /mnt bash -c "echo -e 'title    Arch Linux\nlinux     /EFI/arch/vmlinuz-linux\ninitrd    /EFI/arch/amd-ucode.img\ninitrd    /EFI/arch/initramfs-linux.img\noptions	cryptdevice=UUID=$(blkid -t LABEL=luks -s UUID -o value):luks root=/dev/mapper/luks rootflags=subvol=/root rw' > /efi/loader/entries/arch.conf"
-arch-chroot /mnt bash -c "echo -e 'title    Arch Linux G14 Kernel\nlinux     /EFI/arch/vmlinuz-linux-g14\ninitrd    /EFI/arch/amd-ucode.img\ninitrd    /EFI/arch/initramfs-linux-g14.img\noptions	cryptdevice=UUID=$(blkid -t LABEL=luks -s UUID -o value):luks root=/dev/mapper/luks rootflags=subvol=/root rw' > /efi/loader/entries/arch-g14.conf"
+arch-chroot /mnt bash -c "echo -e 'title    Arch Linux\nlinux     /EFI/arch/vmlinuz-linux.efi\ninitrd    /EFI/arch/amd-ucode.img\ninitrd    /EFI/arch/initramfs-linux.img\noptions	cryptdevice=UUID=$(blkid -t LABEL=luks -s UUID -o value):luks root=/dev/mapper/luks rootflags=subvol=/root rw' > /efi/loader/entries/arch.conf"
+arch-chroot /mnt bash -c "echo -e 'title    Arch Linux G14 Kernel\nlinux     /EFI/arch/vmlinuz-linux-g14.efi\ninitrd    /EFI/arch/amd-ucode.img\ninitrd    /EFI/arch/initramfs-linux-g14.img\noptions	cryptdevice=UUID=$(blkid -t LABEL=luks -s UUID -o value):luks root=/dev/mapper/luks rootflags=subvol=/root rw' > /efi/loader/entries/arch-g14.conf"
 arch-chroot /mnt systemctl enable acpid
 
 # g14 specific
