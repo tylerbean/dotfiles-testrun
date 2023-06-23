@@ -12,11 +12,11 @@ dotfiles_dir="$(
 
 FILE=/usr/bin/paru
 if [ ! -f "$FILE" ]; then
-    cd "$dotfiles_dir"
+    mkdir -p ~/code/misc-cloned; cd $_
     git clone https://aur.archlinux.org/paru.git
     cd paru
     makepkg -si
-    cd ..
+    cd ~
 fi
 
 paru -Sy --noconfirm --skipreview udiskie-dmenu-git iriunwebcam-bin arch-secure-boot \
