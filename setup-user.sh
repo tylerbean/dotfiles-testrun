@@ -16,11 +16,13 @@ makepkg -si
 cd ..
 
 paru -Sy udiskie-dmenu-git iriunwebcam-bin arch-secure-boot \
-mkinitcpio-encrypt-detached-header chromium-widevine scli-git wluma \
+mkinitcpio-encrypt-detached-header chromium-widevine wluma \
 vimiv-qt webwormhole-git bfs overdue hyprland-autoname-workspaces-git \
 gtk-theme-arc-gruvbox-git wlsunset wlrctl swaync ttf-courier-prime \
 ttf-heuristica ttf-signika aurpublish aurutils repoctl terraform-ls \
 teehee lscolors-git anydesk python-urwid_readline
+
+# scli-git 
 
 link() {
     orig_file="$dotfiles_dir/$1"
