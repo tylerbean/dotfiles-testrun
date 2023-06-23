@@ -63,7 +63,7 @@ get_choice() {
 }
 
 echo -e "\n### Getting mirrors"
-reflector --save /etc/pacman.d/mirrorlist --country "United States" --protocol https --sort rate -l 5 > /dev/null
+reflector --save /etc/pacman.d/mirrorlist --country "United States" -p https --sort rate -l 150 -n 5 --threads 150 > /dev/null
 pacman -Syy > /dev/null
 
 echo -e "\n### Checking UEFI boot mode"
