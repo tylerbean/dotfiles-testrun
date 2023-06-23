@@ -234,10 +234,10 @@ EOF
 mkdir -p /mnt/etc/pacman.d/hooks
 cat << 'EOF' > /mnt/etc/pacman.d/hooks/999-kernel-efi-copy.hook
 [Trigger]
-Type = File
+Type = Path
 Operation = Install
 Operation = Upgrade
-Target = boot/vmlinuz*
+Target = usr/lib/modules/*/vmlinuz
 Target = usr/lib/initcpio/*
 Target = boot/*-ucode.img
 
