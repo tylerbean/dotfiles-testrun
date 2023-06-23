@@ -19,7 +19,7 @@ if [ ! -f "$FILE" ]; then
     cd ..
 fi
 
-paru -Sy udiskie-dmenu-git iriunwebcam-bin arch-secure-boot \
+paru -Sy --noconfirm --skipreview udiskie-dmenu-git iriunwebcam-bin arch-secure-boot \
 mkinitcpio-encrypt-detached-header chromium-widevine wluma \
 vimiv-qt webwormhole-git bfs overdue hyprland-autoname-workspaces-git \
 gtk-theme-arc-gruvbox-git wlsunset wlrctl swaync ttf-courier-prime \
