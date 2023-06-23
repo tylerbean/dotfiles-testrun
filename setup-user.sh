@@ -9,11 +9,15 @@ dotfiles_dir="$(
     cd "$(dirname "$0")"
     pwd
 )"
-cd "$dotfiles_dir"
-git clone https://aur.archlinux.org/paru.git
-cd paru
-makepkg -si
-cd ..
+
+FILE=/usr/bin/paru
+if [ ! -f "$FILE" ]; then
+    cd "$dotfiles_dir"
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
+    makepkg -si
+    cd ..
+fi
 
 paru -Sy udiskie-dmenu-git iriunwebcam-bin arch-secure-boot \
 mkinitcpio-encrypt-detached-header chromium-widevine wluma \
